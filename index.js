@@ -12,10 +12,11 @@ mongoose.connect(process.env.MONGODB_URI);
 // ---------------
 // ---------------
 // import route Login
-// const LoginRoutes = require("./routes/login");
-// app.use(LoginRoutes);
 const loginRoutes = require("./routes/login");
 app.use(loginRoutes);
+
+const signupRoutes = require("./routes/signup");
+app.use(signupRoutes);
 
 // ---------------
 // ---------------
