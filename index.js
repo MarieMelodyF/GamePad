@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGODB_URI);
 // import route Login
 const loginRoutes = require("./routes/login");
 app.use(loginRoutes);
-
+// import route Signup
 const signupRoutes = require("./routes/signup");
 app.use(signupRoutes);
 

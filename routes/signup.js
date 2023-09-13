@@ -2,18 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const router = express.Router();
 const SHA256 = require("crypto-js/sha256");
-const Base64 = require("crypto-js/enc-base64");
 const encBase64 = require("crypto-js/enc-base64");
-const uid = require();
+const uid = require("uid2");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 // import model
 const User = require("../models/User");
-const uid2 = require("uid2");
 
-router.post("user/signup", async (req, res) => {
+router.post("/user/signup", async (req, res) => {
   try {
     console.log(req.body);
     const existingMail = await findOne({ email: req.body.email });
