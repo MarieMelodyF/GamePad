@@ -14,8 +14,8 @@ const User = require("../models/User");
 router.post("/user/signup", async (req, res) => {
   try {
     console.log(req.body);
-    const existingMail = await findOne({ email: req.body.email });
-    const existingUser = await findOne({ username: req.body.email });
+    const existingMail = await User.findOne({ email: req.body.email });
+    const existingUser = await User.findOne({ username: req.body.email });
     if (existingMail) {
       res.status(400).json("Email alreaydy exist ! Use your account 😉");
     } else if (existingUser) {

@@ -8,10 +8,6 @@ const User = mongoose.model(
     token: { type: String },
     hash: { type: String },
     salt: { type: String },
-    favoritesComics: {
-      type: [mongoose.Schema.Types.ObjectId],
-      default: [],
-    },
   }) // récupèr les données dans mongoose
 );
 
