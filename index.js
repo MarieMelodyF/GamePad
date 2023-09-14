@@ -18,6 +18,9 @@ app.use(loginRoutes);
 const signupRoutes = require("./routes/signup");
 app.use(signupRoutes);
 
+const reviewsRoutes = require("./routes/reviews");
+app.use(reviewsRoutes);
+
 // ---------------
 // ---------------
 // import middleware

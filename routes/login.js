@@ -15,7 +15,7 @@ router.post("/user/login", async (req, res) => {
   try {
     // trouver l'utilisateur
     const foundUser = await User.findOne({ email: req.body.email });
-    console.log("foundUser ==>", foundUser);
+    // console.log("foundUser ==>", req.body.email);
     // comparer le password
     const comparePassword = req.body.password + foundUser.salt;
     const hash = SHA256(comparePassword).toString(encBase64);
