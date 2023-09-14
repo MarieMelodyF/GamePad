@@ -5,15 +5,15 @@ const isAuthenticated = async (req, res, next) => {
     // recherche de l'utilisateur via le token
     const user = await User.findOne({
       token: req.headers.authorization.replace("Bearer ", ""),
-    }).select("account");
+    });
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ error: "Unauthorized1" });
     } else {
       req.user = user;
       return next();
     }
   } else {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ error: "Unauthorized2" });
   }
 };
 
