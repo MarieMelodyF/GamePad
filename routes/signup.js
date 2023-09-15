@@ -29,14 +29,15 @@ const converToBase64 = (file) => {
 router.post("/user/signup", fileUpload(), async (req, res) => {
   try {
     // upload file
-    console.log("req", req.body);
-    const pictureToUpload = req.body.avatar;
+    // console.log("req", req.body);
+    // console.log("files", req.files);
+    const pictureToUpload = req.files.avatar;
     // console.log(pictureToUpload);
     // save on cloudinary
     const result = await cloudinary.uploader.upload(
       converToBase64(pictureToUpload)
     );
-    console.log("result", result);
+    // console.log("result", result);
 
     console.log(req.body);
     const existingMail = await User.findOne({ email: req.body.email });
@@ -64,7 +65,7 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
           secure_url: result.secure_url,
         },
       });
-      console.log(newUser);
+      // console.log(newUser);
       await newUser.save();
       res.status(200).json({
         _id: newUser._id,

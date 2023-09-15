@@ -53,13 +53,12 @@ router.post("/games/reviews", isAuthenticaded, async (req, res) => {
 router.get("/allreviews/:id", async (req, res) => {
   const game_id = req.params.id;
   console.log("gameID =>", game_id);
-  // console.log("req,body", req.body);
   // console.log("gameid-allreviews=>", game_id);
   try {
     if (game_id) {
       const allreviews = await Reviews.find({ game_id });
       res.status(200).json(allreviews);
-      console.log("allreviews =>", allreviews); // Affiche les commentaires lié à l'id au jeu
+      console.log("allreviewsbygameID =>", allreviews); // Affiche les commentaires lié à l'id au jeu
     } else {
       res.status(200).json("allreviews2 =>", allreviews);
     }
