@@ -8,13 +8,15 @@ app.use(express.json());
 // import des models reviews et user
 const Reviews = require("../models/Reviews");
 const User = require("../models/User");
+// import du middleware
 const isAuthenticaded = require("../middlewares/isAuthenticaded");
 
+// route post review
 router.post("/games/reviews", isAuthenticaded, async (req, res) => {
   const { title, reviews } = req.body;
-  console.log("title=>", title);
-  console.log("reviews=>", reviews);
-  console.log("id", req.body.game_id);
+  // console.log("title=>", title);
+  // console.log("reviews=>", reviews);
+  // console.log("id", req.body.game_id);
 
   try {
     // const existingReviews = await Reviews.findOne({
@@ -45,6 +47,24 @@ router.post("/games/reviews", isAuthenticaded, async (req, res) => {
     // }
   } catch (error) {
     console.log("=>", error.message);
+  }
+});
+
+router.get("/allreviews/:id", async (req, res) => {
+  const game_id = req.params.id;
+  console.log("gameID =>", game_id);
+  // console.log("req,body", req.body);
+  // console.log("gameid-allreviews=>", game_id);
+  try {
+    if (game_id) {
+      const allreviews = await Reviews.find({ game_id });
+      res.status(200).json(allreviews);
+      console.log("allreviews =>", allreviews); // Affiche les commentaires lié à l'id au jeu
+    } else {
+      res.status(200).json("allreviews2 =>", allreviews);
+    }
+  } catch (error) {
+    console.log("error allreviews", error.message);
   }
 });
 
