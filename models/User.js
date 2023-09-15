@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
-const User = mongoose.model("User", {
-  email: { unique: true, type: String },
-  account: {
-    username: { required: true, type: String },
-    avatar: Object,
-  },
-  token: String,
-  hash: String,
-  salt: String,
-});
+const User = mongoose.model(
+  "User",
+  {
+    username: { type: String, unique: true, require: true },
+    email: { type: String, unique: true, require: true },
+    token: { type: String },
+    hash: { type: String },
+    salt: { type: String },
+    avatar_user: { type: Object },
+  } // récupèr les données dans mongoose
+);
 
 module.exports = User;
