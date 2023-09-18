@@ -4,6 +4,8 @@ const Reviews = mongoose.model("Reviews", {
   title: { type: String },
   reviews: { type: String },
   game_id: { type: String },
+  token: { type: String },
+  date: { type: Object },
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,

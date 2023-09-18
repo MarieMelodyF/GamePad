@@ -9,7 +9,7 @@ const isAuthenticated = async (req, res, next) => {
     });
     // console.log("user", user);
     if (!user) {
-      return res.status(401).json({ error: "Unauthorized1" });
+      return res.status(401).json({ error: "You need to be logged" });
     } else {
       req.user = user;
       return next();
