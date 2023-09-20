@@ -13,18 +13,13 @@ const isAuthenticaded = require("../middlewares/isAuthenticaded");
 
 // POST A REVIEWS
 router.post("/games/reviews", isAuthenticaded, async (req, res) => {
-  const { title, reviews, token, game_id, date } = req.body;
-  // console.log("title=>", title);
-  // console.log("reviews=>", reviews);
-  // console.log("id", req.body.game_id);
-  console.log(req.body);
+  const { title, reviews, _id, game_id, date } = req.body;
+  // console.log("->", req.user);
   try {
-    const existingReviews = await Reviews.find({
-      token: token,
+    const existingReviews = await Reviews.findOne({
       game_id: game_id,
+      author: req.user._id,
     });
-    console.log("gameid", game_id);
-    console.log("token", token);
     console.log("existing", existingReviews);
     if (existingReviews) {
       return res
@@ -59,7 +54,7 @@ router.get("/allreviews/:id", async (req, res) => {
   // console.log("gameid-allreviews=>", game_id);
   try {
     if (game_id) {
-      const allreviews = await Reviews.find({ game_id });
+      const allreviews = await Reviews.find({ game_id }).populate("author");
       res.status(200).json(allreviews);
       // console.log("allreviewsbygameID =>", allreviews); // Affiche les commentaires lié à l'id au jeu
     }

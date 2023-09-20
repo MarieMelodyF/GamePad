@@ -27,6 +27,9 @@ app.use(signupRoutes);
 const reviewsRoutes = require("./routes/reviews");
 app.use(reviewsRoutes);
 
+const MyCollection = require("./routes/favorites");
+app.use(MyCollection);
+
 // ---------------
 // ---------------
 // import middleware

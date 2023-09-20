@@ -4,16 +4,13 @@ const Reviews = mongoose.model("Reviews", {
   title: { type: String },
   reviews: { type: String },
   game_id: { type: String },
-  token: { type: String },
   date: { type: Object },
+  username: { type: String },
+  count: { type: Number },
+  avatar_user: { type: Object },
   author: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    username: { type: String },
-    _id: { type: String },
-    avatar_user: { type: Object },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 module.exports = Reviews;
