@@ -7,12 +7,14 @@ require("dotenv").config();
 router.get("/home", async (req, res) => {
   const page_size = req.query.page_size || 100;
   const page = req.query.page || 1;
-  const name = req.query.name || "";
-  // const order = req.query.order || "";
+  const name = req.query.search || "";
+  const ordering = req.query.ordering || "";
+
+  console.log(req.query.page);
 
   try {
     const response = await axios.get(
-      `https://api.rawg.io/api/games?key=${process.env.API_KEY_GAME}&search=${name}&page_size=${page_size}&page=${page}`
+      `https://api.rawg.io/api/games?key=${process.env.API_KEY_GAME}&search=${name}&page_size=${page_size}&page=${page}&ordering=${ordering}`
     );
     res.status(200).json(response.data);
   } catch (error) {
@@ -23,7 +25,7 @@ router.get("/home", async (req, res) => {
 // GAME INFO ID
 router.get("/games/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(id);
+  // console.log(id);
   try {
     const response = await axios.get(
       `https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY_GAME}`

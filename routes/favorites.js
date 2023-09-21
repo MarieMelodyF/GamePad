@@ -19,9 +19,9 @@ router.post("/allfavorites", async (req, res) => {
     const Users = await User.findOne({
       token: token,
     });
-    console.log("UserFind", Users);
+    // console.log("UserFind", Users);
     const favoriteGame = Users.favoriteGame;
-    console.log("favoritesSave", favoriteGame);
+    // console.log("favoritesSave", favoriteGame);
     res.status(200).json(favoriteGame);
   } catch (error) {
     res.status(406).json({ message: error });
@@ -53,7 +53,7 @@ router.post("/favorite", async (req, res) => {
       };
       //if id exist
       const isFound = favGame.some((element) => {
-        console.log(element);
+        // console.log(element);
         if (element.id === favorite.id) {
           return true;
         }
@@ -68,25 +68,28 @@ router.post("/favorite", async (req, res) => {
   }
 });
 
-// ///DELETE
-// router.put("/deletefavorite", async (req, res) => {
-//   const { gameId, token } = req.body;
-//   try {
-//     const Users = await User.findOne({
-//       token: token,
-//     });
-//     const favoriteArray = Users.favorites;
+///DELETE
+router.post("/deletefavorite", async (req, res) => {
+  const { gameId, token } = req.body;
+  try {
+    const Users = await User.findOne({
+      token: token,
+    });
+    console.log(Users);
+    const favoriteArray = Users.favoriteGame;
+    console.log("favArray", favoriteArray);
+    // const gameid = favoriteArray.findIndex(id);
+    // console.log(gameid);
+    favoriteArray.splice(
+      favoriteArray.findIndex((elem) => elem.id === gameId),
+      1
+    );
 
-//     favoriteArray.splice(
-//       favoriteArray.findIndex((a) => a.id === gameId),
-//       1
-//     );
-
-//     Users.save();
-//     res.status(200).json(favoriteArray);
-//   } catch (error) {
-//     res.status(406).json({ message: error });
-//   }
-// });
+    Users.save();
+    res.status(200).json(favoriteArray);
+  } catch (error) {
+    res.status(400).json({ message: error.response });
+  }
+});
 
 module.exports = router;

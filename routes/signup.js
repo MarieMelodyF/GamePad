@@ -29,8 +29,6 @@ const converToBase64 = (file) => {
 router.post("/user/signup", fileUpload(), async (req, res) => {
   try {
     // upload file
-    // console.log("req", req.body);
-    // console.log("files", req.files);
     const pictureToUpload = req.files.avatar;
     // console.log(pictureToUpload);
     // save on cloudinary
@@ -39,17 +37,23 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
     );
     // console.log("result", result);
 
-    console.log(req.body);
+    // console.log(req.body);
+    const { email, username, password } = req.body;
+
     const existingMail = await User.findOne({ email: req.body.email });
     const existingUser = await User.findOne({ username: req.body.email });
     if (existingMail) {
       res.status(400).json("Email alreaydy exist ! Use your account 😉");
-    } else if (existingUser) {
+    }
+    if (existingUser) {
       res
         .status(400)
         .json(
           " This username already exist ! Please, choose another username."
         );
+    }
+    if (!email || !username || !password) {
+      res.status(400).json("You must fill in all the fields");
     } else {
       const salt = uid(16);
       const token = uid(16);
@@ -75,7 +79,7 @@ router.post("/user/signup", fileUpload(), async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ message: error.reponse });
+    res.status(400).json({ message: error.response });
     console.log(error);
   }
 });
